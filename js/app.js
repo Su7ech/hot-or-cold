@@ -16,8 +16,17 @@ $(document).ready(function(){
 
 function newGame() {
   var getNewNum = getRandomNum(1, 100);
-  var userInput = document.getElementById('userGuess').value;
   console.log(getNewNum);
+}
+window.onload = function() {
+	function getUserInput() {
+		var button = document.getElementById('guessButton');
+		var userInput = document.getElementById('userGuess');
+		button.onclick = function(userInput) {
+			var userNum = userInput.value;
+			console.log(userNum);
+		}
+	}
 }
 
 function getRandomNum(min, max) {
