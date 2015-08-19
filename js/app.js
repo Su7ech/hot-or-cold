@@ -11,23 +11,80 @@ $(document).ready(function(){
   	$("a.close").click(function(){
   		$(".overlay").fadeOut(1000);
   	});
+    
+    // Starts game on page load
+    playGame();
 
 });
 
 function newGame() {
-  var getNewNum = getRandomNum(1, 100);
-  console.log(getNewNum);
+
 }
-window.onload = function() {
-	function getUserInput() {
-		var button = document.getElementById('guessButton');
-		var userInput = document.getElementById('userGuess');
-		button.onclick = function(userInput) {
-			var userNum = userInput.value;
-			console.log(userNum);
-		}
-	}
+
+function playGame() {
+  var randomNum = getRandomNum(1, 100);
+  console.log(randomNum);
+  var guessBtn = document.getElementById('guessButton');
+  guessBtn.onclick = function(e) {
+    e.preventDefault();
+    var userNum = getUserInput();
+    document.getElementById('userGuess').value = '';
+    console.log(compareValues(randomNum, userNum));
+  }
 }
+
+function compareValues(cpu, user) {
+  if ((user - cpu > 50) || (cpu - user > 50)) {
+    return ("Ice Cold!!!");
+  } else if ((user - cpu > 30) || (cpu - user > 30)) {
+    return ("Cold");
+  } else if ((user - cpu > 20) || (cpu - user > 20)) {
+    return ("Warm");
+  } else if ((user - cpu > 10) || (cpu - user > 10)) {
+    return ("Hotter");
+  } else if ((user - cpu > 0)  || (cpu - user > 0)) {
+    return ("SO HOT!!!");
+  } else if (user == cpu) {
+    return ("YOU GOT IT!!!");
+  }
+}
+
+function displayResult() {
+
+}
+
+function getUserInput() {
+  var input = document.getElementById('userGuess');
+  var text = input.value;
+  var guess = parseInt(text, 10);
+  if (isValidNumber(guess)) {
+    console.log(guess);
+    return guess
+  } else {
+    alert("Not a valid number, try again...");
+    text = '';
+  }
+  // var button = document.getElementById('guessButton');
+  // var userInput = document.getElementById('userGuess').value;
+  // button.onclick = function(e) {
+  //   e.preventDefault();
+  //   var userNum = userInput.value;
+  //   userNum = parseInt(userNum, 10);
+  //   if (isValidNumber(userNum)) {
+  //     console.log(userNum);
+  //     // console.log(compareValues(cpu, userNum));
+  //     userInput.value = '';
+  //     return userNum;
+  //   } else {
+  //     alert("Not a valid number, try again...");
+  //     userInput.value = '';
+  //   }
+  // }
+}
+
+function isValidNumber(n) {
+  return Number.isInteger(n);
+} 
 
 function getRandomNum(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) +min;
@@ -79,8 +136,6 @@ function getRandomNum(min, max) {
 //   }
 // }
 
-// function isValidNumber(n) {
-//   return Number.isInteger(n);
-// } 
+
 
 
