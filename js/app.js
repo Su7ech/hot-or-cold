@@ -18,7 +18,13 @@ $(document).ready(function(){
 });
 
 function newGame() {
-
+  var ul = document.getElementById('guessList');
+  var newGame = document.getElementsByClassName('new');
+  newGame.onclick = function(e) {
+    e.preventDefault();
+    resetGuessList();
+    playGame();
+  }
 }
 
 function playGame() {
@@ -32,6 +38,7 @@ function playGame() {
     previousGuess(userNum);
     var results = compareValues(randomNum, userNum);
     if (isValidNumber(userNum)) {
+      // displayResult(results);
       alert(results);
     } else {
       alert("Not a valid number, try again...");
@@ -67,14 +74,12 @@ function previousGuess(num) {
   }
 }
 
-// function displayResult(cpu, user) {
-//   var results = compareValues(cpu, user);
+// function displayResult(results) {
 //   var newDiv = document.createElement("div");
 //   var announce = document.createElement('h1')
 //   var newContent = document.createTextNode(results);
-//   announce.appendChild(newContent);
 //   newDiv.appendChild(newContent);
-//   alert(results);
+//   document.body.appendChild(newDiv);
 // }
 
 function getUserInput() {
@@ -87,6 +92,13 @@ function getUserInput() {
   } else {
     return false
     // text = '';
+  }
+}
+
+function resetGuessList() {
+  var currentDiv = document.getElementById("guessList");
+  while (currentDiv.firstChild) {
+    currentDiv.removeChild(currentDiv.firstChild);
   }
 }
 
