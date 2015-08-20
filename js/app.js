@@ -29,7 +29,13 @@ function playGame() {
     e.preventDefault();
     var userNum = getUserInput();
     document.getElementById('userGuess').value = '';
-    console.log(compareValues(randomNum, userNum));
+    previousGuess(userNum);
+    var results = compareValues(randomNum, userNum);
+    if (isValidNumber(userNum)) {
+      alert(results);
+    } else {
+      alert("Not a valid number, try again...");
+    }
   }
 }
 
@@ -49,9 +55,27 @@ function compareValues(cpu, user) {
   }
 }
 
-function displayResult() {
-
+function previousGuess(num) {
+  var prevGuess = num;
+  var node = document.createElement('li');
+  var guesses = document.createTextNode(prevGuess);
+  if (isValidNumber(prevGuess)) {
+    node.appendChild(guesses);
+    document.getElementById('guessList').appendChild(node);
+  } else {
+    return false;
+  }
 }
+
+// function displayResult(cpu, user) {
+//   var results = compareValues(cpu, user);
+//   var newDiv = document.createElement("div");
+//   var announce = document.createElement('h1')
+//   var newContent = document.createTextNode(results);
+//   announce.appendChild(newContent);
+//   newDiv.appendChild(newContent);
+//   alert(results);
+// }
 
 function getUserInput() {
   var input = document.getElementById('userGuess');
@@ -61,25 +85,9 @@ function getUserInput() {
     console.log(guess);
     return guess
   } else {
-    alert("Not a valid number, try again...");
-    text = '';
+    return false
+    // text = '';
   }
-  // var button = document.getElementById('guessButton');
-  // var userInput = document.getElementById('userGuess').value;
-  // button.onclick = function(e) {
-  //   e.preventDefault();
-  //   var userNum = userInput.value;
-  //   userNum = parseInt(userNum, 10);
-  //   if (isValidNumber(userNum)) {
-  //     console.log(userNum);
-  //     // console.log(compareValues(cpu, userNum));
-  //     userInput.value = '';
-  //     return userNum;
-  //   } else {
-  //     alert("Not a valid number, try again...");
-  //     userInput.value = '';
-  //   }
-  // }
 }
 
 function isValidNumber(n) {
@@ -89,53 +97,3 @@ function isValidNumber(n) {
 function getRandomNum(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) +min;
 }
-
-
-// window.onload = function() {
-// 	function newGame() {
-// 		var cpuNum = getRandomInt(1, 100);
-// 	}
-// }
-
-// function newGame() {
-// 	var randomNum = getRandomInt(1, 100);
-// 	var userInput = getUserInput();
-// 	compareNumbers(userInput, randomNum);
-// }
-
-// function getRandomInt(min, max) {
-//   return Math.floor(Math.random() * (max - min + 1)) + min;
-// }
-
-// function compareNumbers(user, cpu) {
-// 	if (cpu - user > 50) {
-// 		("ICE COLD!");
-// 	} else if (cpu - user >= 30) {
-// 		("Cold");
-// 	} else if (cpu - user >= 20) {
-// 		("Warm");
-// 	} else if (cpu - user >= 10) {
-// 		("Hot");
-// 	} else if (cpu - user > 0) {
-// 		("Very Hot!");
-// 	} else if (cpu == user) {
-// 		("Winner!");
-// 	}
-// }
-
-// function getUserInput() {
-//   var element = document.getElementById("userGuess");
-//   var userInput = element.value;
-//   var userNum = parseInt(userInput, 10);
-//   if (isValidNumber(userNum)) {
-//     return userNum;
-//     element.value = '';
-//   } else {
-//     alert("Not a valid number, try again...");
-//     element.value = '';
-//   }
-// }
-
-
-
-
