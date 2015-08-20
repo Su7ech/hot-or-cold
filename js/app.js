@@ -12,20 +12,27 @@ $(document).ready(function(){
   		$(".overlay").fadeOut(1000);
   	});
     
+    $('.new').click(function(e) {
+      e.preventDefault();
+      resetGame();
+      playGame();
+    })
+
     // Starts game on page load
     playGame();
 
 });
 
-function newGame() {
-  var ul = document.getElementById('guessList');
-  var newGame = document.getElementsByClassName('new');
-  newGame.onclick = function(e) {
-    e.preventDefault();
-    resetGuessList();
-    playGame();
-  }
-}
+// function newGame() {
+//   var ul = document.getElementById('guessList');
+//   var game = document.getElementsByClassName('new')[0];
+//   game.onclick = function(e) {
+//     e.preventDefault();
+//     alert("This is working");
+//     resetGuessList();
+//     playGame();
+//   }
+// }
 
 function playGame() {
   var randomNum = getRandomNum(1, 100);
@@ -39,6 +46,7 @@ function playGame() {
     var results = compareValues(randomNum, userNum);
     if (isValidNumber(userNum)) {
       // displayResult(results);
+      incrementCount();
       alert(results);
     } else {
       alert("Not a valid number, try again...");
@@ -74,13 +82,13 @@ function previousGuess(num) {
   }
 }
 
-// function displayResult(results) {
-//   var newDiv = document.createElement("div");
-//   var announce = document.createElement('h1')
-//   var newContent = document.createTextNode(results);
-//   newDiv.appendChild(newContent);
-//   document.body.appendChild(newDiv);
-// }
+function incrementCount() {
+  var getCount = $('#count')
+  var count = parseInt(getCount.text(), 10);
+  var newCount = count += 1;
+  newCount.toString();
+  getCount.text(newCount);
+}
 
 function getUserInput() {
   var input = document.getElementById('userGuess');
@@ -91,15 +99,15 @@ function getUserInput() {
     return guess
   } else {
     return false
-    // text = '';
   }
 }
 
-function resetGuessList() {
+function resetGame() {
   var currentDiv = document.getElementById("guessList");
   while (currentDiv.firstChild) {
     currentDiv.removeChild(currentDiv.firstChild);
   }
+  $('#count').text('0');
 }
 
 function isValidNumber(n) {
